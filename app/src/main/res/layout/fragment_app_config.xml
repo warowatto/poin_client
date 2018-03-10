@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardElevation="4dp"
+        app:cardUseCompatPadding="true">
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="2"
+            android:padding="8dp"
+            android:rowCount="2">
+
+            <TextView
+                android:layout_marginBottom="4dp"
+                android:text="블루투스 자동 켜기"
+                android:textColor="@color/textcolor_main"
+                android:textSize="12dp" />
+
+            <Switch
+                android:layout_gravity="right"
+                android:layout_rowSpan="2" />
+
+            <TextView
+                android:text="어플리케이션 실행 시 블루투스를 자동으로 활성화 합니다"
+                android:textColor="@color/textcolor_sub"
+                android:textSize="11dp" />
+        </GridLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardElevation="4dp"
+        app:cardUseCompatPadding="true">
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="2"
+            android:padding="8dp"
+            android:rowCount="2">
+
+            <TextView
+                android:layout_marginBottom="4dp"
+                android:text="결제완료 알림"
+                android:textColor="@color/textcolor_main"
+                android:textSize="12dp" />
+
+            <Switch
+                android:layout_gravity="right"
+                android:layout_rowSpan="2" />
+
+            <TextView
+                android:text="결제완료 알림 메시지를 수신합니다"
+                android:textColor="@color/textcolor_sub"
+                android:textSize="11dp" />
+        </GridLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardElevation="4dp"
+        app:cardUseCompatPadding="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:text="어플리케이션 정보"
+                android:textColor="@color/textcolor_main"
+                android:textSize="12dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="버전 : 2.0.1"
+                android:textColor="@color/textcolor_sub"
+                android:textSize="10dp" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="16dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:text="이용문의"
+                android:textColor="@color/textcolor_main"
+                android:textSize="12dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:layout_marginLeft="8dp"
+                android:text="payot.2017@gmail.com"
+                android:textColor="@color/textcolor_sub"
+                android:textSize="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="070-7807-6857"
+                android:textColor="@color/textcolor_sub"
+                android:textSize="10dp" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="16dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:text="업체정보"
+                android:textColor="@color/textcolor_main"
+                android:textSize="12dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:layout_marginLeft="8dp"
+                android:text="(주)페이오티"
+                android:textColor="@color/textcolor_sub"
+                android:textSize="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="부산광역시 금정구 부산대학로 63번길 2 과학기술연구동 201호"
+                android:textColor="@color/textcolor_sub"
+                android:textSize="10dp" />
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Copyright(C) 2018, (주)페이오티"
+        android:textColor="@color/textcolor_sub"
+        android:textSize="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="All Right Reserved."
+        android:textColor="@color/textcolor_sub"
+        android:textSize="10dp" />
+
+</LinearLayout>
