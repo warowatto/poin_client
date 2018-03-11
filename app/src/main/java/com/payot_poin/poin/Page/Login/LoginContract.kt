@@ -14,6 +14,7 @@ interface LoginContract {
     interface Presenter {
 
         fun attachView(view: LoginContract.View)
+
         fun checkedUser()
     }
 }

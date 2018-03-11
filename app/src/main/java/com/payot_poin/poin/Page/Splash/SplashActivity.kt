@@ -13,16 +13,15 @@ import com.payot_poin.poin.R
  */
 class SplashActivity : RootActivity() {
 
+    val permissions = arrayOf(
+            android.Manifest.permission.CAMERA,
+            android.Manifest.permission.BLUETOOTH,
+            android.Manifest.permission.BLUETOOTH_ADMIN,
+            android.Manifest.permission.ACCESS_FINE_LOCATION)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-
-
-        val permissions = arrayOf(
-                android.Manifest.permission.CAMERA,
-                android.Manifest.permission.BLUETOOTH,
-                android.Manifest.permission.BLUETOOTH_ADMIN,
-                android.Manifest.permission.ACCESS_FINE_LOCATION)
 
         ActivityCompat.requestPermissions(this, permissions, 2000)
 
@@ -31,7 +30,7 @@ class SplashActivity : RootActivity() {
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
-        if (requestCode == 2000 && grantResults.filter { it == PackageManager.PERMISSION_GRANTED }.size == 4) {
+        if (requestCode == 2000 && grantResults.filter { it == PackageManager.PERMISSION_GRANTED }.size == permissions.size) {
             startActivity(Intent(this, LoginActivity::class.java))
             this.finish()
         }

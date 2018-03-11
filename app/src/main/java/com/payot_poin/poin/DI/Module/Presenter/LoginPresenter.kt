@@ -31,7 +31,6 @@ class LoginPresenter(val activity: LoginActivity) {
         }
 
         override fun checkedUser() {
-
             view.findUser()
             userProfile.flatMap { userAPI.login("kakao", it.id.toString()) }
                     .observeOn(AndroidSchedulers.mainThread())

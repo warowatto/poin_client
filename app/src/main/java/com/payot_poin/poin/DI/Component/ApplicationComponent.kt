@@ -1,12 +1,14 @@
 package com.payot_poin.poin.DI.Component
 
 import android.content.SharedPreferences
+import com.kakao.usermgmt.response.model.UserProfile
 import com.payot_poin.poin.App
 import com.payot_poin.poin.DI.Module.ApplicationModule
 import com.payot_poin.poin.DI.Module.PoinDeviceModule
 import com.payot_poin.poin.Interface.DeviceController
 import com.payot_poin.poin.Interface.DeviceScanner
 import dagger.Component
+import io.reactivex.Single
 import kr.or.payot.poin.DI.Modules.KakaoModule
 import kr.or.payot.poin.DI.Modules.NetworkModule
 import kr.or.payot.poin.RESTFul.MachineAPI
@@ -27,9 +29,11 @@ interface ApplicationComponent {
 
     fun controller(): DeviceController
 
-    fun userAAPI(): UserAPI
+    fun userAPI(): UserAPI
 
     fun machineAPI(): MachineAPI
 
     fun sharedPreference(): SharedPreferences
+
+    fun userProfile(): Single<UserProfile>
 }

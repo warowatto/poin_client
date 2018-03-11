@@ -7,6 +7,9 @@ import android.widget.ProgressBar
 import com.kakao.auth.ISessionCallback
 import com.kakao.auth.Session
 import com.kakao.util.exception.KakaoException
+import com.payot_poin.poin.App
+import com.payot_poin.poin.DI.Component.DaggerLoginComponent
+import com.payot_poin.poin.DI.Module.Presenter.LoginPresenter
 import com.payot_poin.poin.Page.RootActivity
 import com.payot_poin.poin.R
 import javax.inject.Inject
@@ -24,6 +27,12 @@ class LoginActivity : RootActivity(), LoginContract.View, ISessionCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+        DaggerLoginComponent.builder()
+                .applicationComponent(App.component)
+                .loginPresenter(LoginPresenter(this))
+                .build().inject(this)
+
+        presenter.attachView(this)
 
         progress = findViewById(R.id.progressbar_login)
 

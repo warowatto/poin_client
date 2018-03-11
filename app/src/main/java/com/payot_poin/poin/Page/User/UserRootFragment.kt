@@ -52,6 +52,6 @@ class UserRootFragment : RootFragment() {
 
         override fun getCount(): Int = pages.size
 
-        override fun getPageTitle(position: Int): CharSequence? = titles[position]
+        // override fun getPageTitle(position: Int): CharSequence? = titles[position]
     }
 }

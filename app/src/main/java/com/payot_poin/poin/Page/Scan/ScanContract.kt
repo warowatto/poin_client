@@ -14,10 +14,9 @@ interface ScanContract {
         fun endFindMachineProgress()
 
         fun hasNeedCard()
-
         fun hasBluetoothEnable()
-
         fun findMachine(machine: Machine)
+        fun readyScan()
     }
 
     interface Presenter {
@@ -26,8 +25,6 @@ interface ScanContract {
 
         fun qrcodeView(qrCodeReaderView: QRCodeReaderView)
 
-        fun scanning()
-
-        fun stopScanning()
+        fun checkFindoQrcode(): Boolean
     }
 }

@@ -6,6 +6,8 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.view.ViewPager
+import android.widget.TextView
+import com.payot_poin.poin.App
 import com.payot_poin.poin.Page.CardAdd.CardAddFragment
 import com.payot_poin.poin.Page.Preference.AppPreferenceFragment
 import com.payot_poin.poin.Page.RootActivity
@@ -37,21 +39,23 @@ class MainActivity : RootActivity() {
 
         tablayout.getTabAt(0)?.setIcon(R.drawable.ic_camera)
         tablayout.getTabAt(1)?.setIcon(R.drawable.ic_person)
-        tablayout.getTabAt(2)?.setIcon(R.drawable.ic_card)
-        tablayout.getTabAt(3)?.setIcon(R.drawable.ic_setting)
+        tablayout.getTabAt(2)?.setIcon(R.drawable.ic_setting)
 
+        val userNameTextView = findViewById<TextView>(R.id.txtUserName)
+
+        userNameTextView.text = "${App.user?.id}님 반갑습니다"
     }
 
     class MainPagerAdapter(fragmentManager: FragmentManager) : FragmentPagerAdapter(fragmentManager) {
 
-        val pages = arrayOf(ScanFragment(), UserRootFragment(), CardAddFragment(), AppPreferenceFragment())
+        val pages = arrayOf(ScanFragment(), UserRootFragment(), AppPreferenceFragment())
         val title = arrayOf("QR코드", "내정보", "카드등록", "설정")
 
         override fun getItem(position: Int): Fragment = pages[position]
 
         override fun getCount(): Int = pages.size
 
-        override fun getPageTitle(position: Int): CharSequence? = title[position]
+        // override fun getPageTitle(position: Int): CharSequence? = title[position]
 
     }
 

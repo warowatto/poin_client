@@ -20,15 +20,22 @@ import javax.inject.Inject
  */
 class ScanFragment : RootFragment(), ScanContract.View {
 
+
     @Inject
     lateinit var presenter: ScanContract.Presenter
 
     lateinit var qrCodeReaderView: QRCodeReaderView
 
+    lateinit var viewGroup: Array<View>
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val layout = inflater.inflate(R.layout.fragment_scan, container, false)
 
         qrCodeReaderView = layout.findViewById(R.id.qrcodeReaderView)
+        viewGroup = arrayOf(
+                layout.findViewById(R.id.viewgroup_frame),
+                layout.findViewById(R.id.viewgroup_bluetooth),
+                layout.findViewById(R.id.viewgroup_card))
 
         return layout
     }
@@ -42,6 +49,31 @@ class ScanFragment : RootFragment(), ScanContract.View {
                 .build().inject(this)
 
         presenter.attachView(this)
+        presenter.qrcodeView(qrCodeReaderView)
+
+        qrCodeReaderView.startCamera()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        presenter.checkFindoQrcode()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        qrCodeReaderView.setQRDecodingEnabled(false)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        qrCodeReaderView.stopCamera()
+    }
+
+
+    fun allDisableViewGroup(visibleViewPosition: Int) {
+        viewGroup.forEach { it.visibility = View.INVISIBLE }
+
+        viewGroup[visibleViewPosition].visibility = View.VISIBLE
     }
 
     override fun findMachineProgress() {
@@ -52,12 +84,16 @@ class ScanFragment : RootFragment(), ScanContract.View {
         Toast.makeText(this.context, "장치를 찾았습니다", Toast.LENGTH_SHORT).show()
     }
 
+    override fun readyScan() {
+        allDisableViewGroup(0)
+    }
+
     override fun hasNeedCard() {
-        Toast.makeText(this.context, "카드가 필요합니다", Toast.LENGTH_SHORT).show()
+        allDisableViewGroup(2)
     }
 
     override fun hasBluetoothEnable() {
-        Toast.makeText(this.context, "블루투스를 활성화 해주십시오", Toast.LENGTH_SHORT).show()
+        allDisableViewGroup(1)
     }
 
     override fun findMachine(machine: Machine) {
