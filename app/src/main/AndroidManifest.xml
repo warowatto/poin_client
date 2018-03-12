@@ -17,7 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".Page.Splash.SplashActivity">
+        <activity
+            android:name=".Page.Splash.SplashActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,23 +27,33 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".Page.Login.LoginActivity">
-
-        </activity>
-
-        <activity android:name=".Page.Signup.SignupActivity"
+        <activity
+            android:name=".Page.Login.LoginActivity"
             android:screenOrientation="portrait">
 
-
         </activity>
 
-        <activity android:name=".Page.Main.MainActivity">
-
-        </activity>
-
-        <activity android:name=".Page.CardAdd.CardAddActivity"
+        <activity
+            android:name=".Page.Signup.SignupActivity"
             android:screenOrientation="portrait">
+
         </activity>
+
+        <activity
+            android:name=".Page.Main.MainActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <activity
+            android:name=".Page.Payment.PaymentActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <activity
+            android:name=".Page.CardAdd.CardAddActivity"
+            android:screenOrientation="portrait"></activity>
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"

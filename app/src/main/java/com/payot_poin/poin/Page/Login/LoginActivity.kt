@@ -2,6 +2,7 @@ package com.payot_poin.poin.Page.Login
 
 import android.content.Intent
 import android.os.Bundle
+import android.service.textservice.SpellCheckerService
 import android.view.View
 import android.widget.ProgressBar
 import com.kakao.auth.ISessionCallback
@@ -12,6 +13,7 @@ import com.payot_poin.poin.DI.Component.DaggerLoginComponent
 import com.payot_poin.poin.DI.Module.Presenter.LoginPresenter
 import com.payot_poin.poin.Page.RootActivity
 import com.payot_poin.poin.R
+import kotlinx.android.synthetic.main.activity_login.*
 import javax.inject.Inject
 
 /**
@@ -38,6 +40,14 @@ class LoginActivity : RootActivity(), LoginContract.View, ISessionCallback {
 
         Session.getCurrentSession().addCallback(this)
         Session.getCurrentSession().checkAndImplicitOpen()
+
+        if (Session.getCurrentSession().isOpened) {
+            kakaoLogin.visibility = View.INVISIBLE
+            progress.visibility = View.VISIBLE
+        } else {
+            kakaoLogin.visibility = View.VISIBLE
+            progress.visibility = View.INVISIBLE
+        }
 
     }
 

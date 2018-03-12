@@ -38,6 +38,7 @@ class LoginPresenter(val activity: LoginActivity) {
                     .subscribe(
                             {
                                 App.user = it
+                                println("사용자 정보 : ${it.cards.toString()}")
                                 val intent = Intent(activity, MainActivity::class.java)
                                 activity.startActivity(intent)
                                 activity.finish()

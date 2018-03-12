@@ -9,6 +9,7 @@ import com.payot_poin.poin.Interface.DeviceScanner
 import dagger.Module
 import dagger.Provides
 import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.rxkotlin.toObservable
 import io.reactivex.rxkotlin.zipWith
 import io.reactivex.schedulers.Schedulers
@@ -35,14 +36,15 @@ class PoinDeviceModule {
 
         lateinit var leScanCallback: BluetoothAdapter.LeScanCallback
 
-        override fun scan(): Observable<BluetoothDevice> {
-            return Observable.create { emitter ->
+        override fun scan(): Single<BluetoothDevice> {
+            return Single.create { emitter ->
                 leScanCallback = BluetoothAdapter.LeScanCallback { device, _, _ ->
                     val deviceName = device.name
                     val macAddress = device.address
 
-                    if (deviceName.equals(macAddress.replace(":", ""))) {
-                        emitter.onNext(device)
+                    if (deviceName == macAddress.replace(":", "")) {
+                        emitter.onSuccess(device)
+                        stopScan()
                     }
                 }
 
@@ -119,7 +121,7 @@ class PoinDeviceModule {
             checksum@
             for ((index, _) in checkedCRCMessage.withIndex()) {
                 val validationMessage = checkedCRCMessage.take(index + 1).toByteArray()
-                if (validationMessage contentEquals byteArrayOf(0x00, 0x00)) {
+                if (crc(validationMessage) contentEquals byteArrayOf(0x00, 0x00)) {
                     responseMessageBytes = validationMessage.dropLast(2).toByteArray()
                     break@checksum
                 }
@@ -147,8 +149,6 @@ class PoinDeviceModule {
                     }
                 }
             }
-
-            // println(crc)
 
             val buffer = ByteBuffer.allocate(2)
             buffer.order(ByteOrder.LITTLE_ENDIAN)
@@ -191,9 +191,20 @@ class PoinDeviceModule {
                     .doOnNext {
                         bluetoothMessageSend(it)
                     }.takeLast(1)
-                    .flatMap { response }
+                    .flatMap { responseObserver.buffer(64).map { it.toByteArray() } }
                     .take(1)
                     .map { messageConvert.reciveMessage(it) }
+        }
+
+        override fun onServicesDiscovered(gatt: BluetoothGatt?, status: Int) {
+            super.onServicesDiscovered(gatt, status)
+            val findService = findChar(gatt!!)
+            this.gatt = gatt
+            this.gattChar = findService?.second!!
+
+            if (findService != null && this.gatt?.setCharacteristicNotification(findService.second, true) ?: false) {
+                statusObserver.onNext(1000)
+            }
         }
 
         override fun onConnectionStateChange(gatt: BluetoothGatt?, status: Int, newState: Int) {
@@ -218,7 +229,28 @@ class PoinDeviceModule {
         }
 
         override fun disconnect() {
+            sendMessage("CMD S 3")
+                    .subscribe { gatt?.close() }
+        }
 
+        fun findChar(bluetoothGatt: BluetoothGatt): Pair<BluetoothGattService, BluetoothGattCharacteristic>? {
+            for (gattService in bluetoothGatt.services) {
+                for (gattChar in gattService.characteristics) {
+                    if (isWriteable(gattChar) && isNotify(gattChar)) {
+                        return gattService to gattChar
+                    }
+                }
+            }
+
+            return null
+        }
+
+        fun isWriteable(characteristic: BluetoothGattCharacteristic): Boolean {
+            return (characteristic.properties and (BluetoothGattCharacteristic.PROPERTY_WRITE or BluetoothGattCharacteristic.PROPERTY_WRITE_NO_RESPONSE)) != 0
+        }
+
+        fun isNotify(characteristic: BluetoothGattCharacteristic): Boolean {
+            return (characteristic.properties and (BluetoothGattCharacteristic.PROPERTY_NOTIFY) != 0)
         }
 
     }

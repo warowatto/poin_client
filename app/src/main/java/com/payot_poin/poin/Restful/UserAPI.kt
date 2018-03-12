@@ -41,8 +41,9 @@ interface UserAPI {
 
     // 결제하기
     @FormUrlEncoded
-    @POST("/user/payment")
+    @POST("/user/{userId}/payment")
     fun payment(
+            @Path("userId") userId: Int,
             @Field("cardId") cardId: Int,
             @Field("machineId") machineId: Int,
             @Field("productId") productId: Int,

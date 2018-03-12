@@ -6,14 +6,16 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.view.ViewPager
+import android.widget.ImageView
 import android.widget.TextView
 import com.payot_poin.poin.App
-import com.payot_poin.poin.Page.CardAdd.CardAddFragment
 import com.payot_poin.poin.Page.Preference.AppPreferenceFragment
 import com.payot_poin.poin.Page.RootActivity
 import com.payot_poin.poin.Page.Scan.ScanFragment
 import com.payot_poin.poin.Page.User.UserRootFragment
 import com.payot_poin.poin.R
+import com.payot_poin.poin.Utils.href
+import kotlinx.android.synthetic.main.activity_main.*
 
 /**
  * Created by yongheekim on 2018. 3. 10..
@@ -27,12 +29,12 @@ class MainActivity : RootActivity() {
         setContentView(R.layout.activity_main)
 
         initView()
-
     }
 
     private fun initView() {
         val tablayout: TabLayout = findViewById(R.id.tablayout_main)
         viewPager = findViewById(R.id.viewpager_main)
+        viewPager.offscreenPageLimit = 3
 
         viewPager.adapter = MainPagerAdapter(supportFragmentManager)
         tablayout.setupWithViewPager(viewPager)
@@ -42,8 +44,17 @@ class MainActivity : RootActivity() {
         tablayout.getTabAt(2)?.setIcon(R.drawable.ic_setting)
 
         val userNameTextView = findViewById<TextView>(R.id.txtUserName)
+        val userDescriptionView = findViewById<TextView>(R.id.txtUserDescription)
+        val profileImage = findViewById<ImageView>(R.id.imgProfile)
 
-        userNameTextView.text = "${App.user?.id}님 반갑습니다"
+        userNameTextView.text = "${App.user?.name}님 안녕하세요"
+        txtUserDescription.text = App.user?.email
+        App.user?.profileImage?.let {
+            profileImage.href(it)
+        }
+
+        txtTitle.isSelected = true
+
     }
 
     class MainPagerAdapter(fragmentManager: FragmentManager) : FragmentPagerAdapter(fragmentManager) {

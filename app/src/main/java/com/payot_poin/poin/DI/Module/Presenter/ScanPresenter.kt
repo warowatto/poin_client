@@ -12,6 +12,7 @@ import com.payot_poin.poin.Page.Scan.ScanContract
 import com.payot_poin.poin.Page.Scan.ScanFragment
 import dagger.Module
 import dagger.Provides
+import io.reactivex.android.schedulers.AndroidSchedulers
 import kr.or.payot.poin.RESTFul.MachineAPI
 
 /**
@@ -41,17 +42,20 @@ class ScanPresenter(val fragment: ScanFragment) {
         override fun onQRCodeRead(text: String?, points: Array<out PointF>?) {
             qrCodeReaderView.setQRDecodingEnabled(false)
             println(text)
-            if (text != null && text.length == 12) {
+            if (text != null && text.length == 17) {
                 view.findMachineProgress()
                 deviceScanner.scan()
-                        .singleOrError()
-                        .flatMap { machine -> machineAPI.getMachine(machine.address) }
+                        .flatMap { machine -> machineAPI.getMachine(machine.address).map { it to machine } }
+                        .observeOn(AndroidSchedulers.mainThread())
                         .doOnEvent { _, _ -> view.endFindMachineProgress() }
                         .subscribe(
                                 {
+
+                                    view.findMachine(it.first)
                                     val context = fragment.context
                                     val intent = Intent(context, PaymentActivity::class.java)
-                                    intent.putExtra("device", it)
+                                    intent.putExtra("device", it.first)
+                                    intent.putExtra("realDevice", it.second)
 
                                     context?.startActivity(intent)
                                 },

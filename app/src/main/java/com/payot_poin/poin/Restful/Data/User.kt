@@ -9,6 +9,8 @@ import kotlin.collections.ArrayList
  * Created by yongheekim on 2018. 2. 21..
  */
 data class User(val id: Int,
+                val email: String,
+                val name: String,
         // M(Man) or F(Female)
                 val gender: String,
                 val profileImage: String?,
@@ -21,6 +23,8 @@ data class User(val id: Int,
             source.readString(),
             source.readString(),
             source.readString(),
+            source.readString(),
+            source.readString(),
             source.readInt(),
             source.readSerializable() as Date,
             source.createTypedArrayList(Card.CREATOR)
@@ -30,6 +34,8 @@ data class User(val id: Int,
 
     override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
         writeInt(id)
+        writeString(email)
+        writeString(name)
         writeString(gender)
         writeString(profileImage)
         writeString(thumbnailImage)

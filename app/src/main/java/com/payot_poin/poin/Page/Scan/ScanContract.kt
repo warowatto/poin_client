@@ -1,8 +1,7 @@
 package com.payot_poin.poin.Page.Scan
 
-import android.arch.lifecycle.LifecycleObserver
 import com.dlazaro66.qrcodereaderview.QRCodeReaderView
-import kr.or.payot.poin.RESTFul.Data.Machine
+import kr.or.payot.poin.RESTFul.MachineResponse
 
 /**
  * Created by yongheekim on 2018. 3. 11..
@@ -15,7 +14,7 @@ interface ScanContract {
 
         fun hasNeedCard()
         fun hasBluetoothEnable()
-        fun findMachine(machine: Machine)
+        fun findMachine(machine: MachineResponse)
         fun readyScan()
     }
 

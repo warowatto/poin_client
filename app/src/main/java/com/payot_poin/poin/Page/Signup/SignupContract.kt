@@ -9,12 +9,13 @@ interface SignupContract {
         fun signupProgress()
 
         fun endSignupProgress()
+        fun errorSignup(message: String)
     }
 
     interface Presenter {
 
         fun attachView(view: SignupContract.View)
 
-        fun signup(email: String, name:String, gender: String)
+        fun signup(email: String, name: String, gender: String)
     }
 }

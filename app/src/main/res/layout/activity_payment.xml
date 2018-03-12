@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_payment"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            app:title="결제하기"
+            app:titleTextColor="@android:color/white">
+
+        </android.support.v7.widget.Toolbar>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:layout_marginBottom="8dp"
+                android:layout_weight="1"
+                app:cardBackgroundColor="@android:color/white"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="서비스 업체"
+                        android:textColor="@color/textcolor_main"
+                        android:textSize="13dp" />
+
+                    <TextView
+                        android:id="@+id/txtCompanyName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginLeft="16dp"
+                        android:text="업체명"
+                        android:textColor="@android:color/holo_orange_light"
+                        android:textSize="14dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txtCompanyEmail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginLeft="16dp"
+                        android:text="이메일"
+                        android:textColor="@color/textcolor_sub"
+                        android:textSize="12dp" />
+
+                    <TextView
+                        android:id="@+id/txtCompanyTel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:text="전화번호"
+                        android:textColor="@color/textcolor_sub"
+                        android:textSize="12dp" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:layout_marginBottom="8dp"
+                android:layout_weight="1"
+                app:cardBackgroundColor="@android:color/white"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="자동판매 정보"
+                        android:textColor="@color/textcolor_main"
+                        android:textSize="13dp" />
+
+                    <TextView
+                        android:id="@+id/txtMachineType"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginLeft="16dp"
+                        android:text="자판기 타입"
+                        android:textColor="@android:color/holo_orange_light"
+                        android:textSize="14dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txtMachineAddress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginLeft="16dp"
+                        android:text="위치"
+                        android:textColor="@color/textcolor_sub"
+                        android:textSize="12dp" />
+
+                    <TextView
+                        android:id="@+id/txtMachineDescription"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:text="자판기 설명"
+                        android:textColor="@color/textcolor_sub"
+                        android:textSize="12dp" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerview_payment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+    <include
+        android:id="@+id/bottom_sheet"
+        layout="@layout/bottom_payment" />
+</android.support.design.widget.CoordinatorLayout>
