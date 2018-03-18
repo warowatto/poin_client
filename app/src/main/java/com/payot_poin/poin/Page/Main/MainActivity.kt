@@ -28,7 +28,6 @@ class MainActivity : RootActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        initView()
     }
 
     private fun initView() {
@@ -57,6 +56,11 @@ class MainActivity : RootActivity() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        initView()
+    }
+
     class MainPagerAdapter(fragmentManager: FragmentManager) : FragmentPagerAdapter(fragmentManager) {
 
         val pages = arrayOf(ScanFragment(), UserRootFragment(), AppPreferenceFragment())
@@ -66,7 +70,6 @@ class MainActivity : RootActivity() {
 
         override fun getCount(): Int = pages.size
 
-        // override fun getPageTitle(position: Int): CharSequence? = title[position]
 
     }
 

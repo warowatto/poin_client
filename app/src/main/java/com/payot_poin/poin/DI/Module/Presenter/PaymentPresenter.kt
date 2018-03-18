@@ -5,6 +5,7 @@ import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.OnLifecycleEvent
 import android.bluetooth.BluetoothDevice
 import com.payot_poin.poin.App
+import com.payot_poin.poin.DI.Module.PoinDeviceModule
 import com.payot_poin.poin.DI.PerActivity
 import com.payot_poin.poin.Interface.DeviceController
 import com.payot_poin.poin.Page.Payment.PaymentActivity
@@ -31,7 +32,7 @@ import java.util.*
  * Created by yongheekim on 2018. 3. 11..
  */
 
-@Module
+@Module(includes = arrayOf(PoinDeviceModule::class))
 class PaymentPresenter(val activity: PaymentActivity) {
 
     @PerActivity

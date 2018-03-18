@@ -2,6 +2,8 @@ package com.payot_poin.poin.DI.Module
 
 import android.bluetooth.*
 import android.content.Context
+import com.payot_poin.poin.DI.PerActivity
+import com.payot_poin.poin.DI.PerFragment
 import com.payot_poin.poin.Interface.DeviceController
 import com.payot_poin.poin.Interface.DeviceMessageConvert
 import com.payot_poin.poin.Interface.DeviceMessageEncryption
@@ -30,7 +32,7 @@ import javax.inject.Singleton
 @Module
 class PoinDeviceModule {
 
-    @Singleton
+    @PerFragment
     @Provides
     fun provideDeviceScanner(): DeviceScanner = object : DeviceScanner {
 
@@ -58,7 +60,7 @@ class PoinDeviceModule {
 
     }
 
-    @Singleton
+    @PerActivity
     @Provides
     fun provideMessageencryption(): DeviceMessageEncryption = object : DeviceMessageEncryption {
         private val key = byteArrayOf(
@@ -90,7 +92,7 @@ class PoinDeviceModule {
         }
     }
 
-    @Singleton
+    @PerActivity
     @Provides
     fun provideDeviceMessageConvert(messageEncryption: DeviceMessageEncryption): DeviceMessageConvert = object : DeviceMessageConvert {
         override fun sendMessage(message: String): ByteArray {
@@ -164,7 +166,7 @@ class PoinDeviceModule {
 
     }
 
-    @Singleton
+    @PerActivity
     @Provides
     fun provideDeviceController(messageConvert: DeviceMessageConvert): DeviceController = object : BluetoothGattCallback(), DeviceController {
 

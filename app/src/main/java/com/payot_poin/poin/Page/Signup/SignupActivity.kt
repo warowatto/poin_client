@@ -58,7 +58,7 @@ class SignupActivity : RootActivity(), SignupContract.View {
         btnSignup.setOnClickListener {
             val email = editEmail.text.toString()
             val gender = if (radio_man.isChecked) "M" else "F"
-            val name = editEmail.text.toString()
+            val name = editName.text.toString()
 
             presenter.signup(email, name, gender)
         }

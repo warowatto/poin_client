@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.PointF
 import com.dlazaro66.qrcodereaderview.QRCodeReaderView
 import com.payot_poin.poin.App
+import com.payot_poin.poin.DI.Module.PoinDeviceModule
 import com.payot_poin.poin.DI.PerFragment
 import com.payot_poin.poin.Interface.DeviceScanner
 import com.payot_poin.poin.Page.Payment.PaymentActivity
@@ -19,7 +20,7 @@ import kr.or.payot.poin.RESTFul.MachineAPI
  * Created by yongheekim on 2018. 3. 11..
  */
 
-@Module
+@Module(includes = arrayOf(PoinDeviceModule::class))
 class ScanPresenter(val fragment: ScanFragment) {
 
     @PerFragment

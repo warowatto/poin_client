@@ -20,14 +20,10 @@ import javax.inject.Singleton
  */
 
 @Singleton
-@Component(modules = arrayOf(ApplicationModule::class, NetworkModule::class, PoinDeviceModule::class, KakaoModule::class))
+@Component(modules = arrayOf(ApplicationModule::class, NetworkModule::class, KakaoModule::class))
 interface ApplicationComponent {
 
     fun inject(app: App)
-
-    fun scanner(): DeviceScanner
-
-    fun controller(): DeviceController
 
     fun userAPI(): UserAPI
 

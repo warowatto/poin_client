@@ -6,7 +6,6 @@ import com.kakao.auth.KakaoSDK
 import com.payot_poin.poin.DI.Component.ApplicationComponent
 import com.payot_poin.poin.DI.Component.DaggerApplicationComponent
 import com.payot_poin.poin.DI.Module.ApplicationModule
-import com.payot_poin.poin.DI.Module.PoinDeviceModule
 import kr.or.payot.poin.DI.Modules.KakaoModule
 import kr.or.payot.poin.DI.Modules.NetworkModule
 import kr.or.payot.poin.RESTFul.Data.User
@@ -19,7 +18,7 @@ class App : Application() {
 
     companion object {
         lateinit var component: ApplicationComponent
-        var user: User? = null
+        lateinit var user: User
     }
 
     @Inject
@@ -32,11 +31,11 @@ class App : Application() {
                 .applicationModule(ApplicationModule(this))
                 .kakaoModule(KakaoModule())
                 .networkModule(NetworkModule())
-                .poinDeviceModule(PoinDeviceModule())
                 .build()
 
         component.inject(this)
 
         KakaoSDK.init(kakaoAdapter)
+
     }
 }

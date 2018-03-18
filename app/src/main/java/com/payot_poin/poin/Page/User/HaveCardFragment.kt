@@ -109,6 +109,7 @@ class HaveCardFragment : RootFragment() {
                             )
                 }
                 .setNegativeButton("닫기") { dialog, _ -> dialog.dismiss() }
+                .setOnDismissListener { adapter.notifyDataSetChanged() }
                 .show()
     }
 

@@ -28,7 +28,7 @@
                 android:marqueeRepeatLimit="marquee_forever"
                 android:padding="8dp"
                 android:singleLine="true"
-                android:text="Poin 서비스 오픈기념 3회 이용 무료 이벤트를 진행 중 입니다"/>
+                android:text="Poin 서비스 오픈기념 처음 이용 50% 할인 이벤트를 진행 중 입니다"/>
 
         </android.support.v7.widget.CardView>
 
