@@ -57,6 +57,10 @@ class PaymentListFragment : RootFragment() {
             layoutManager = LinearLayoutManager(this.context)
             adapter = mAdapter()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
 
         userAPI.list(App.user?.id!!)
                 .observeOn(AndroidSchedulers.mainThread())

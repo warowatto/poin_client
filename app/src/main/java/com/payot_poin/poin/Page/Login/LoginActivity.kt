@@ -1,5 +1,6 @@
 package com.payot_poin.poin.Page.Login
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.service.textservice.SpellCheckerService
@@ -11,6 +12,7 @@ import com.kakao.util.exception.KakaoException
 import com.payot_poin.poin.App
 import com.payot_poin.poin.DI.Component.DaggerLoginComponent
 import com.payot_poin.poin.DI.Module.Presenter.LoginPresenter
+import com.payot_poin.poin.HashKey
 import com.payot_poin.poin.Page.RootActivity
 import com.payot_poin.poin.R
 import kotlinx.android.synthetic.main.activity_login.*
@@ -48,7 +50,6 @@ class LoginActivity : RootActivity(), LoginContract.View, ISessionCallback {
             kakaoLogin.visibility = View.VISIBLE
             progress.visibility = View.INVISIBLE
         }
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

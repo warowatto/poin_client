@@ -7,19 +7,31 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
+    signingConfigs {
+        release {
+            keyAlias 'payot'
+            keyPassword 'vpdldhxl'
+            storeFile file('/Users/yongheekim/Desktop/payot/params/payot')
+            storePassword 'vpdldhxl'
+        }
+    }
     compileSdkVersion 26
     defaultConfig {
         applicationId "com.payot_poin.poin"
         minSdkVersion 19
         targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        versionCode 3
+        versionName "1.0.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            signingConfig signingConfigs.release
         }
     }
     kapt {
@@ -35,38 +47,28 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-
     implementation 'com.android.support:design:27.1.0'
     implementation 'com.android.support:cardview-v7:27.1.0'
     implementation 'com.squareup.picasso:picasso:2.3.2'
     implementation 'jp.wasabeef:picasso-transformations:2.2.1'
-
     implementation 'com.dlazaro66.qrcodereaderview:qrcodereaderview:2.0.3'
-
     // Dagger Dependency injection
     compile 'com.google.dagger:dagger-android:2.+'
     kapt 'com.google.dagger:dagger-compiler:2.+'
-
     // kakao login
-    implementation group: 'com.kakao.sdk', name: 'usermgmt', version: '1.8.0'
-
+    implementation 'com.kakao.sdk:usermgmt:1.8.0'
     // RxKotlin
     implementation 'io.reactivex.rxjava2:rxkotlin:+'
     implementation 'io.reactivex.rxjava2:rxandroid:+'
     implementation 'com.cantrowitz:rxbroadcast:2.0.0'
-
     // okhttp
     implementation 'com.squareup.okhttp3:okhttp:+'
     implementation 'com.squareup.okhttp3:logging-interceptor:+'
     implementation 'com.burgstaller:okhttp-digest:1.16'
-
     // retorift
     implementation 'com.squareup.retrofit2:retrofit:+'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:+'
     implementation 'com.squareup.retrofit2:converter-gson:+'
-
-
-
     compile 'com.github.ronaldsmartin:Material-ViewPagerIndicator:1.0.4'
 
 }

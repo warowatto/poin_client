@@ -16,6 +16,7 @@ interface ScanContract {
         fun hasBluetoothEnable()
         fun findMachine(machine: MachineResponse)
         fun readyScan()
+        fun notFondMachine()
     }
 
     interface Presenter {

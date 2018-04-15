@@ -25,7 +25,6 @@ import javax.inject.Inject
  */
 class ScanFragment : RootFragment(), ScanContract.View {
 
-
     @Inject
     lateinit var presenter: ScanContract.Presenter
 
@@ -122,5 +121,12 @@ class ScanFragment : RootFragment(), ScanContract.View {
 
     override fun findMachine(machine: MachineResponse) {
 
+    }
+
+    override fun notFondMachine() {
+        AlertDialog.Builder(activity)
+                .setMessage("장치를 찾을 수 없습니다")
+                .setNeutralButton("확인") { _, _ -> }
+                .show()
     }
 }

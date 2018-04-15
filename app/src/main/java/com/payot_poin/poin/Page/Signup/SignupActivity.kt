@@ -60,6 +60,14 @@ class SignupActivity : RootActivity(), SignupContract.View {
             val gender = if (radio_man.isChecked) "M" else "F"
             val name = editName.text.toString()
 
+            if (email.length == 0 || name.length == 0) {
+                AlertDialog.Builder(this)
+                        .setMessage("모든 내용을 입력 해 주세요")
+                        .setNeutralButton("확인") { _, _ -> }
+                        .show()
+                return@setOnClickListener
+            }
+
             presenter.signup(email, name, gender)
         }
     }

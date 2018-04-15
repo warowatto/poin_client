@@ -38,18 +38,19 @@ class PoinDeviceModule {
 
         lateinit var leScanCallback: BluetoothAdapter.LeScanCallback
 
-        override fun scan(): Single<BluetoothDevice> {
+        override fun scan(qrText: String): Single<BluetoothDevice> {
             return Single.create { emitter ->
                 leScanCallback = BluetoothAdapter.LeScanCallback { device, _, _ ->
                     val deviceName = device.name
                     val macAddress = device.address
 
-                    if (deviceName == macAddress.replace(":", "")) {
-                        emitter.onSuccess(device)
-                        stopScan()
+                    if (deviceName != null) {
+                        if (deviceName == macAddress.replace(":", "") && qrText == macAddress) {
+                            emitter.onSuccess(device)
+                            stopScan()
+                        }
                     }
                 }
-
                 BluetoothAdapter.getDefaultAdapter().startLeScan(leScanCallback)
             }
         }
@@ -130,7 +131,7 @@ class PoinDeviceModule {
             }
 
             if (responseMessageBytes != null) {
-                return responseMessageBytes.toString().split(" ")
+                return responseMessageBytes.toString(Charsets.UTF_8).split(" ")
             } else {
                 throw NullPointerException("Message Format Error")
             }

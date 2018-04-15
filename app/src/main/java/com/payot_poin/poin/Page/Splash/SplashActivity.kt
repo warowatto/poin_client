@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.support.v4.app.ActivityCompat
+import com.payot_poin.poin.HashKey
 import com.payot_poin.poin.Page.Login.LoginActivity
 import com.payot_poin.poin.Page.RootActivity
 import com.payot_poin.poin.R
@@ -25,10 +26,8 @@ class SplashActivity : RootActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("bluetooth", false)) {
-            if (!BluetoothAdapter.getDefaultAdapter().isEnabled) {
-                BluetoothAdapter.getDefaultAdapter().enable()
-            }
+        if (!BluetoothAdapter.getDefaultAdapter().isEnabled) {
+            BluetoothAdapter.getDefaultAdapter().enable()
         }
 
         ActivityCompat.requestPermissions(this, permissions, 2000)

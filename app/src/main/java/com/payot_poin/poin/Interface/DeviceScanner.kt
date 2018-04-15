@@ -9,7 +9,7 @@ import io.reactivex.Single
  */
 interface DeviceScanner {
 
-    fun scan(): Single<BluetoothDevice>
+    fun scan(macAddress:String): Single<BluetoothDevice>
 
     fun stopScan()
 }

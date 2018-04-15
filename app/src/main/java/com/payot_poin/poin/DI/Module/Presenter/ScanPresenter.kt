@@ -14,7 +14,9 @@ import com.payot_poin.poin.Page.Scan.ScanFragment
 import dagger.Module
 import dagger.Provides
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kr.or.payot.poin.RESTFul.MachineAPI
+import java.util.concurrent.TimeUnit
 
 /**
  * Created by yongheekim on 2018. 3. 11..
@@ -45,8 +47,9 @@ class ScanPresenter(val fragment: ScanFragment) {
             println(text)
             if (text != null && text.length == 17) {
                 view.findMachineProgress()
-                deviceScanner.scan()
-                        .flatMap { machine -> machineAPI.getMachine(machine.address).map { it to machine } }
+                deviceScanner.scan(text)
+                        .timeout(2, TimeUnit.SECONDS, Schedulers.computation())
+                        .flatMap { machine -> machineAPI.getMachine(text).map { it to machine } }
                         .observeOn(AndroidSchedulers.mainThread())
                         .doOnEvent { _, _ -> view.endFindMachineProgress() }
                         .subscribe(
@@ -61,7 +64,8 @@ class ScanPresenter(val fragment: ScanFragment) {
                                     context?.startActivity(intent)
                                 },
                                 {
-                                    it.printStackTrace()
+                                    view.notFondMachine()
+                                    qrCodeReaderView.setQRDecodingEnabled(true)
                                 })
             } else {
                 checkFindoQrcode()

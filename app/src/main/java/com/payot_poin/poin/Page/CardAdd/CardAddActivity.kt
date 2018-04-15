@@ -66,8 +66,6 @@ class CardAddActivity : RootActivity(), CardAddContract.View {
             val birth = editCardBirth.text.toString()
             presenter.addCard(cardName, cardNumber, cardExpiry, cardPass, birth)
         }
-
-
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -93,8 +91,8 @@ class CardAddActivity : RootActivity(), CardAddContract.View {
                 .setTitle("카드 등록 완료")
                 .setMessage(message)
                 .setNeutralButton("확인") { dialog, _ -> dialog.dismiss() }
+                .setOnDismissListener { this.finish() }
                 .show()
-        "카드등록을 성공적으로 완료했습니다 : " + card.toString() toast this
     }
 
     override fun cardErrorError(message: String) {

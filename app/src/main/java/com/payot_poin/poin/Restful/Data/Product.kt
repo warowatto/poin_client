@@ -11,11 +11,13 @@ data class Product(
         val name: String,
         val description: String,
         val price: Int,
+        val machinePrice: Int,
         val serviceTime: Long) : Parcelable {
     constructor(source: Parcel) : this(
             source.readInt(),
             source.readString(),
             source.readString(),
+            source.readInt(),
             source.readInt(),
             source.readLong()
     )
@@ -27,6 +29,7 @@ data class Product(
         writeString(name)
         writeString(description)
         writeInt(price)
+        writeInt(machinePrice)
         writeLong(serviceTime)
     }
 

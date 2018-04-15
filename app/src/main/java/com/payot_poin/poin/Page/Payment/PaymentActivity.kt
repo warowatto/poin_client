@@ -20,9 +20,7 @@ import com.payot_poin.poin.Page.RootActivity
 import com.payot_poin.poin.R
 import com.payot_poin.poin.Utils.toast
 import kotlinx.android.synthetic.main.activity_payment.*
-import kotlinx.android.synthetic.main.activity_signup.*
 import kotlinx.android.synthetic.main.bottom_payment.*
-import kotlinx.android.synthetic.main.bottom_payment.view.*
 import kr.or.payot.poin.RESTFul.Data.Company
 import kr.or.payot.poin.RESTFul.Data.Machine
 import kr.or.payot.poin.RESTFul.Data.Product
@@ -126,8 +124,6 @@ class PaymentActivity : RootActivity(), PaymentContract.View {
         progress.dismiss()
     }
 
-
-
     fun showPayment(product: Product) {
         val machine = intent.extras.getParcelable("device") as MachineResponse
         bottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
@@ -188,7 +184,7 @@ class PaymentActivity : RootActivity(), PaymentContract.View {
             holder.run {
                 txtProductName.text = item.name
                 txtProductDescription.text = item.description
-                txtPrice.text = item.price.toString()
+                txtPrice.text = "${item.price} 원"
                 rootView.setOnClickListener { showPayment(item) }
             }
         }

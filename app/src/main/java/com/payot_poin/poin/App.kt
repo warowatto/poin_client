@@ -1,6 +1,7 @@
 package com.payot_poin.poin
 
 import android.app.Application
+import android.util.Log
 import com.kakao.auth.KakaoAdapter
 import com.kakao.auth.KakaoSDK
 import com.payot_poin.poin.DI.Component.ApplicationComponent
@@ -35,7 +36,8 @@ class App : Application() {
 
         component.inject(this)
 
-        KakaoSDK.init(kakaoAdapter)
+        Log.d("hash", HashKey.getHashKey(this))
 
+        KakaoSDK.init(kakaoAdapter)
     }
 }

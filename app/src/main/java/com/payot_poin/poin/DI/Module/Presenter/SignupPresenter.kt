@@ -10,6 +10,7 @@ import com.payot_poin.poin.Page.Signup.SignupContract
 import dagger.Module
 import dagger.Provides
 import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
 import kr.or.payot.poin.RESTFul.UserAPI
 
 /**
@@ -29,6 +30,7 @@ class SignupPresenter(val activity: SignupActivity) {
         }
 
         override fun signup(email: String, name: String, gender: String) {
+
             view.signupProgress()
 
             userprofile
@@ -36,6 +38,7 @@ class SignupPresenter(val activity: SignupActivity) {
                         userAPI.signup("kakao", it.id.toString(), email, name, gender, it.profileImagePath, it.thumbnailImagePath)
                     }
                     .doOnEvent { _, _ -> view.endSignupProgress() }
+                    .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
                             {
                                 App.user = it
@@ -45,6 +48,7 @@ class SignupPresenter(val activity: SignupActivity) {
 
                             },
                             {
+                                it.printStackTrace()
                                 view.errorSignup("이미 가입되어 있는 계정입니다")
                             }
                     )

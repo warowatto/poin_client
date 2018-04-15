@@ -4,6 +4,7 @@ import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.OnLifecycleEvent
 import android.bluetooth.BluetoothDevice
+import android.util.Log
 import com.payot_poin.poin.App
 import com.payot_poin.poin.DI.Module.PoinDeviceModule
 import com.payot_poin.poin.DI.PerActivity
@@ -82,22 +83,18 @@ class PaymentPresenter(val activity: PaymentActivity) {
             view.progressPayment()
 
             val userId = App.user?.id!!
-//            val paymentObserver = userAPI.payment(userId, card.id, machine.id, product.productId, product.price, point)
-            val paymentObserver = userAPI.payment(userId, card.id, machine.id, product.productId, 100, point)
-
-            paymentObserver
+            val amount = if (point == 0) product.price else 0
+            userAPI.payment(userId, card.id, machine.id, product.productId, amount, point)
                     .flatMap {
-                        insertCoinObserver(userId, product.price)
+                        insertCoinObserver(userId, product.machinePrice)
                     }
-//            insertCoinObserver(userId, product.price)
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnEvent { _, _ -> view.endProgressPayment() }
                     .subscribe(
                             {
+                                println("결과받음 : ${it}")
                                 if (it[3] == "OK") {
                                     view.paymentSuccess()
-                                } else {
-
                                 }
                             },
                             {
@@ -115,15 +112,20 @@ class PaymentPresenter(val activity: PaymentActivity) {
 
         }
 
-        fun insertCoinObserver(userId: Int, coin: Int): Single<List<String>> =
-                deviceController.sendMessage("CMD S 1 ${getTime(Date())} ${userId}")
-                        .flatMap {
-                            if (it[3] == "OK") {
-                                return@flatMap deviceController.sendMessage("CMD S ${coin}")
-                            } else {
-                                throw IllegalArgumentException("인증처리가 정상적으로 이루지지 않았습니다")
-                            }
-                        }.singleOrError()
+        fun insertCoinObserver(userId: Int, coin: Int): Single<List<String>> {
+            val commend = "CMD S 1 ${getTime(Date())} ${userId}"
+            println("명령보냄 : ${commend}")
+            return deviceController.sendMessage(commend)
+                    .flatMap {
+                        if (it[3] == "OK") {
+                            val coinCommend = "CMD S 2 ${coin}"
+                            println("동전투입 명령 : $coinCommend")
+                            return@flatMap deviceController.sendMessage(coinCommend)
+                        } else {
+                            throw IllegalArgumentException("인증처리가 정상적으로 이루지지 않았습니다")
+                        }
+                    }.singleOrError()
+        }
 
         fun getTime(date: Date): String = SimpleDateFormat("yyMMddHHmmss").format(date)
 

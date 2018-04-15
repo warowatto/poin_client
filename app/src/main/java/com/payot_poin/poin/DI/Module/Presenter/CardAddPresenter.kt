@@ -37,7 +37,7 @@ class CardAddPresenter(val activity: CardAddActivity) {
                     .doOnEvent { _, _ -> view.endCardAddProgress() }
                     .subscribe(
                             {
-                                user?.cards?.add(it)
+                                App.user?.cards?.add(it)
                                 view.sucess(it)
                             },
                             {
